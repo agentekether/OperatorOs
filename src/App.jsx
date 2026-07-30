@@ -18,10 +18,16 @@ import OperatorKnowledgeView from './views/operator/OperatorKnowledgeView';
 import OperatorCoachView from './views/operator/OperatorCoachView';
 import OperatorProfileTab from './views/operator/OperatorProfileTab';
 
+// Root Entry Views (Welcome & Workspace Selector)
+import WelcomeView from './views/WelcomeView';
+import WorkspaceSelectView from './views/WorkspaceSelectView';
+
 import { INITIAL_OPERATORS } from './data/mockData';
 
 export default function App() {
-  const [appMode, setAppMode] = useState('manager'); // Default to Manager to display Command Center redesign
+  const [screen, setScreen] = useState('welcome'); // Root navigation: 'welcome' | 'select-workspace' | 'app'
+  const [appMode, setAppMode] = useState('manager'); // Default mode after workspace selection
+
   
   // Manager State
   const [managerTab, setManagerTab] = useState('overview');
@@ -99,6 +105,21 @@ export default function App() {
       return updated;
     }));
   };
+
+  if (screen === 'welcome') {
+    return <WelcomeView onEnterPrototype={() => setScreen('select-workspace')} />;
+  }
+
+  if (screen === 'select-workspace') {
+    return (
+      <WorkspaceSelectView
+        onSelectWorkspace={(mode) => {
+          setAppMode(mode);
+          setScreen('app');
+        }}
+      />
+    );
+  }
 
   return (
     <div style={{
