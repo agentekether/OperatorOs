@@ -1,0 +1,331 @@
+/* OperatorOS Design System — Premium Visual Language */
+/* Inspired by Linear, Vercel, Arc, Apple Pro */
+
+:root {
+  /* Backgrounds */
+  --bg-dark: #0B0B0D;
+  --bg-surface: #121214;
+  --bg-elevated: #18181B;
+  --bg-hover: #1F1F23;
+  --bg-input: #18181B;
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  /* Text */
+  --text-primary: #F5F5F4;
+  --text-secondary: #A1A1AA;
+  --text-muted: #52525B;
+
+  /* Accent: White. Color only communicates state. */
+  --accent: #F5F5F4;
+
+  /* State Colors — the ONLY color in the system */
+  --state-success: #32D583;
+  --state-success-subtle: rgba(50, 213, 131, 0.12);
+  --state-warning: #F59E0B;
+  --state-warning-subtle: rgba(245, 158, 11, 0.12);
+  --state-danger: #EF4444;
+  --state-danger-subtle: rgba(239, 68, 68, 0.10);
+  --state-info: #A1A1AA;
+
+  /* Legacy aliases for existing components — mapped to new system */
+  --accent-cyan: #A1A1AA;
+  --accent-purple: #A1A1AA;
+  --risk-critical: #EF4444;
+  --risk-critical-bg: rgba(239, 68, 68, 0.08);
+  --risk-at-risk: #F59E0B;
+  --risk-at-risk-bg: rgba(245, 158, 11, 0.08);
+  --risk-watchlist: #F59E0B;
+  --risk-watchlist-bg: rgba(245, 158, 11, 0.06);
+  --risk-healthy: #32D583;
+  --risk-healthy-bg: rgba(50, 213, 131, 0.08);
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+  /* Radius — tighter, more Linear */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+
+  /* Motion — restrained */
+  --transition-fast: 0.18s ease;
+  --transition-normal: 0.22s ease;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar — barely visible */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.14); }
+
+/* ─── Typography ─── */
+.h1-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.h2-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.text-sub {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ─── Status Badges ─── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.badge-critical {
+  background: var(--risk-critical-bg);
+  color: #FCA5A5;
+}
+
+.badge-at-risk {
+  background: var(--risk-at-risk-bg);
+  color: #FDBA74;
+}
+
+.badge-watchlist {
+  background: var(--risk-watchlist-bg);
+  color: #FDE68A;
+}
+
+.badge-healthy {
+  background: var(--risk-healthy-bg);
+  color: #6EE7B7;
+}
+
+/* ─── Indicator Dots ─── */
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-critical { background: var(--risk-critical); }
+.dot-at-risk { background: var(--risk-at-risk); }
+.dot-watchlist { background: var(--risk-watchlist); }
+.dot-healthy { background: var(--risk-healthy); }
+
+/* ─── Card / Section Container ─── */
+.glass-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: border-color var(--transition-fast);
+}
+
+.glass-card:hover {
+  border-color: var(--border-strong);
+}
+
+.glass-card-interactive:hover {
+  border-color: var(--border-strong);
+}
+
+/* ─── Status Indicator (vertical bar) ─── */
+.status-indicator {
+  border-radius: 2px;
+}
+.status-indicator.critical { background: var(--risk-critical); }
+.status-indicator.at-risk { background: var(--risk-at-risk); }
+.status-indicator.watchlist { background: var(--risk-watchlist); }
+.status-indicator.healthy { background: var(--risk-healthy); }
+
+/* ─── Buttons ─── */
+.btn, .primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.btn:hover, .primary-button:hover {
+  background: var(--bg-hover);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.btn-primary, .primary-button {
+  background: var(--text-primary);
+  color: var(--bg-dark);
+  border: 1px solid var(--text-primary);
+  font-weight: 600;
+}
+.btn-primary:hover, .primary-button:hover {
+  background: #E7E5E4;
+  border-color: #E7E5E4;
+  opacity: 1;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+.btn-secondary:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+
+.btn-danger {
+  background: var(--state-danger-subtle);
+  color: #FCA5A5;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.icon-button {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  border-radius: var(--radius-md);
+  padding: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+.icon-button:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+/* ─── Input Fields ─── */
+.input-field {
+  width: 100%;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+.input-field:focus {
+  border-color: var(--border-strong);
+  box-shadow: none;
+}
+.input-field::placeholder {
+  color: var(--text-muted);
+}
+
+/* ─── Modal Overlay ─── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  max-width: 560px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Keyframes ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+/* ─── Table ─── */
+.table-row-hover {
+  transition: background var(--transition-fast);
+}
+.table-row-hover:hover {
+  background: var(--bg-hover) !important;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 640px) {
+  .hide-on-mobile {
+    display: none;
+  }
+  .header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
