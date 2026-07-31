@@ -70,12 +70,7 @@ export default function WorkspaceSelectView({ onSelectWorkspace }) {
         </p>
 
         {/* 2-Column Choice Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '20px',
-          width: '100%'
-        }}>
+        <div className="grid-2-cols" style={{ width: '100%' }}>
           
           {/* Option 1: Operator Workspace */}
           <div

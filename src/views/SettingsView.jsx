@@ -3,15 +3,15 @@ import { Settings, Sliders, ShieldCheck, Flame, Layers } from 'lucide-react';
 
 export default function SettingsView() {
   return (
-    <div style={{ padding: '28px', maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ marginBottom: '24px' }}>
+    <div style={{ padding: 'var(--spacing-page-v) var(--spacing-page-h) 64px', width: '100%', minHeight: '100vh', background: 'var(--bg-dark)' }}>
+      <div style={{ marginBottom: '32px' }}>
         <h1 className="h1-title">System Settings & Engine Rules</h1>
         <p className="text-sub" style={{ marginTop: '2px' }}>
           Configure Risk Engine weights, Stage SLAs, and cohort operational parameters.
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+      <div className="grid-2-cols">
 
         {/* Risk Engine Rules Configuration */}
         <div className="glass-card">

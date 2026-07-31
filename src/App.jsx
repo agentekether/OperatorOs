@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Menu } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import InterventionModal from './components/InterventionModal';
 import OperatorDrawer from './components/OperatorDrawer';
@@ -27,7 +28,7 @@ import { INITIAL_OPERATORS } from './data/mockData';
 export default function App() {
   const [screen, setScreen] = useState('welcome'); // Root navigation: 'welcome' | 'select-workspace' | 'app'
   const [appMode, setAppMode] = useState('manager'); // Default mode after workspace selection
-
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Manager State
   const [managerTab, setManagerTab] = useState('overview');
@@ -49,28 +50,24 @@ export default function App() {
   };
 
   // Execute intervention: reduces risk by 20 points, logs activity item
-  const handleExecuteIntervention = (opId, actionType, noteText) => {
+  const handleExecuteIntervention = (opId, planText) => {
     setOperators(prev => prev.map(op => {
       if (op.id !== opId) return op;
 
       const newRisk = Math.max(0, op.riskScore - 20);
       let newLevel = 'healthy';
       if (newRisk > 60) newLevel = 'critical';
-      else if (newRisk > 35) newLevel = 'at-risk';
-      else if (newRisk > 15) newLevel = 'watchlist';
-
-      const newActivity = {
-        id: `act-${Date.now()}`,
-        date: new Date().toISOString().split('T')[0],
-        type: 'intervention',
-        text: `Executed ${actionType} intervention by ${activeOsm}: ${noteText || 'Standard playbook check-in executed.'}`
-      };
+      else if (newRisk > 40) newLevel = 'at-risk';
+      else if (newRisk > 20) newLevel = 'watchlist';
 
       const updated = {
         ...op,
         riskScore: newRisk,
         riskLevel: newLevel,
-        events: [{ id: `evt-${Date.now()}`, date: new Date().toISOString().split('T')[0], type: 'Coach Intervention', source: 'OperatorOS', text: newActivity.text }, ...(op.events || [])]
+        recentActivity: [
+          { type: 'intervention', text: `Intervention initiated: ${planText.substring(0, 30)}...`, date: 'Just now' },
+          ...(op.recentActivity || [])
+        ]
       };
 
       if (drawerOperator && drawerOperator.id === opId) {
@@ -95,7 +92,7 @@ export default function App() {
 
       const updated = {
         ...op,
-        notes: [newNote, ...op.notes]
+        notes: [newNote, ...(op.notes || [])]
       };
 
       if (drawerOperator && drawerOperator.id === opId) {
@@ -122,23 +119,29 @@ export default function App() {
   }
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'var(--bg-dark)',
-      display: 'grid',
-      gridTemplateColumns: '240px 1fr',
-      overflowX: 'hidden'
-    }}>
+    <div className="app-layout" style={{ background: 'var(--bg-dark)' }}>
       
-      {/* Left Sidebar Shell */}
-      <Sidebar
-        appMode={appMode}
-        setAppMode={setAppMode}
-        activeTab={appMode === 'manager' ? managerTab : operatorTab}
-        setActiveTab={appMode === 'manager' ? setManagerTab : setOperatorTab}
-        activeOsm={activeOsm}
-        operatorName={loggedInOperator ? loggedInOperator.name : "Julian Kether"}
+      {/* Mobile Drawer Overlay */}
+      <div 
+        className={`sidebar-overlay ${isMobileMenuOpen ? 'open' : ''}`}
+        onClick={() => setIsMobileMenuOpen(false)}
       />
+
+      {/* Left Sidebar Shell */}
+      <div className={`sidebar-container ${isMobileMenuOpen ? 'open' : ''}`}>
+        <Sidebar
+          appMode={appMode}
+          setAppMode={setAppMode}
+          activeTab={appMode === 'manager' ? managerTab : operatorTab}
+          setActiveTab={(tab) => {
+            if (appMode === 'manager') setManagerTab(tab);
+            else setOperatorTab(tab);
+            setIsMobileMenuOpen(false); // Auto-close on mobile
+          }}
+          activeOsm={activeOsm}
+          operatorName={loggedInOperator ? loggedInOperator.name : "Julian Kether"}
+        />
+      </div>
 
       {/* Main Content Area */}
       <main style={{
@@ -147,6 +150,34 @@ export default function App() {
         background: 'var(--bg-dark)',
         overflowY: 'auto'
       }}>
+        
+        {/* Mobile Header (Hamburger) */}
+        <div 
+          className="mobile-only" 
+          style={{
+            padding: '16px',
+            borderBottom: '1px solid rgba(255,255,255,0.05)',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            background: 'var(--bg-dark)',
+            position: 'sticky',
+            top: 0,
+            zIndex: 80
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ width: '24px', height: '24px', borderRadius: '4px', background: '#F5F5F4', color: '#0B0B0D', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '-0.05em' }}>
+              O
+            </div>
+            <span style={{ fontSize: '1rem', fontWeight: 600, color: '#F5F5F4', letterSpacing: '-0.02em' }}>OperatorOS</span>
+          </div>
+          <button 
+            onClick={() => setIsMobileMenuOpen(true)}
+            style={{ background: 'transparent', border: 'none', color: '#F5F5F4', padding: '4px', cursor: 'pointer' }}
+          >
+            <Menu size={24} />
+          </button>
+        </div>
         
         {/* === MANAGER VIEWS === */}
         {appMode === 'manager' && (

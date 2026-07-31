@@ -55,6 +55,11 @@
   /* Motion — restrained */
   --transition-fast: 0.18s ease;
   --transition-normal: 0.22s ease;
+
+  /* Responsive Spacing (Default Desktop) */
+  --spacing-page-h: 40px;
+  --spacing-page-v: 36px;
+  --spacing-card: 24px;
 }
 
 /* Reset */
@@ -296,8 +301,109 @@ body {
   max-height: 90vh;
   overflow-y: auto;
   padding: 24px;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
+
+/* ─── Responsive Utility Classes ─── */
+.app-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.grid-main-sidebar {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  width: 100%;
+}
+
+.grid-2-cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-3-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-only { display: none !important; }
+.desktop-only { display: block !important; }
+.desktop-flex { display: flex !important; }
+
+/* ─── Media Queries ─── */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --spacing-page-h: 24px;
+    --spacing-page-v: 24px;
+  }
+  
+  .grid-main-sidebar { grid-template-columns: 1fr; }
+  .grid-4-cols { grid-template-columns: repeat(2, 1fr); }
+  .grid-3-cols { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Mobile (<768px) */
+@media (max-width: 767px) {
+  :root {
+    --spacing-page-h: 16px;
+    --spacing-page-v: 16px;
+    --spacing-card: 16px;
+  }
+  
+  /* App Shell & Sidebar Drawer */
+  .app-layout { grid-template-columns: 1fr; }
+  
+  .sidebar-container {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 280px !important;
+    height: 100vh;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .sidebar-container.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Overlay */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 90;
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .sidebar-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Utility Visibility */
+  .mobile-only { display: flex !important; }
+  .desktop-only, .desktop-flex { display: none !important; }
+
+  /* Collapse all grids to 1 column */
+  .grid-2-cols, .grid-3-cols, .grid-4-cols {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
 
 /* ─── Keyframes ─── */
 @keyframes fadeIn {

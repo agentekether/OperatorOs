@@ -78,17 +78,14 @@ export default function OperatorHomeView({ operator, setOperatorTab }) {
   ];
 
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: '1fr 340px',
+    <div className="grid-main-sidebar" style={{
       minHeight: '100vh',
-      width: '100%',
-      background: 'var(--bg-dark)'
+      background: '#0B0B0D'
     }}>
       
       {/* ─── LEFT COLUMN: MAIN WORKSPACE ─── */}
       <div style={{
-        padding: '36px 48px 64px',
+        padding: 'var(--spacing-page-v) var(--spacing-page-h) 64px',
         display: 'flex',
         flexDirection: 'column',
         gap: '40px',
@@ -135,11 +132,7 @@ export default function OperatorHomeView({ operator, setOperatorTab }) {
         </div>
 
         {/* 4 Hero Metric Blocks */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '24px',
-          padding: '24px 0',
+        <div className="grid-4-cols" style={{ padding: '24px 0',
           borderTop: '1px solid var(--border-subtle)',
           borderBottom: '1px solid var(--border-subtle)'
         }}>
@@ -396,9 +389,9 @@ export default function OperatorHomeView({ operator, setOperatorTab }) {
 
       </div>
 
-      {/* ─── RIGHT COLUMN: UTILITY / INSPECTOR PANEL ─── */}
+      {/* ─── RIGHT COLUMN: UTILITY WIDGETS ─── */}
       <div style={{
-        padding: '36px 24px 64px',
+        padding: 'var(--spacing-page-v) var(--spacing-card) 64px',
         display: 'flex',
         flexDirection: 'column',
         gap: '32px',

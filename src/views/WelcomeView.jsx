@@ -21,7 +21,7 @@ export default function WelcomeView({ onEnterPrototype }) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '80px 24px',
+      padding: 'max(80px, var(--spacing-page-v)) var(--spacing-page-h)',
       animation: 'fadeInWelcome 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards'
     }}>
       <style>{`

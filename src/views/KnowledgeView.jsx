@@ -48,7 +48,7 @@ export default function KnowledgeView() {
       </div>
 
       {/* 2-Column Split: Left (List of Knowledge Assets) & Right (Selected Asset Reader) */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '24px' }}>
+      <div className="grid-2-cols" style={{}}>
 
         {/* Left Column: Asset Catalog */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>

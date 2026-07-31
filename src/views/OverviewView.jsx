@@ -51,17 +51,14 @@ export default function OverviewView({ operators, activeOsm, onSelectOperator, o
   ];
 
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: '1fr 320px',
+    <div className="grid-main-sidebar" style={{
       minHeight: '100vh',
-      width: '100%',
       background: '#0B0B0D'
     }}>
       
       {/* ─── LEFT COLUMN: MAIN WORKSPACE (70%) ─── */}
       <div style={{
-        padding: '36px 40px 64px',
+        padding: 'var(--spacing-page-v) var(--spacing-page-h) 64px',
         display: 'flex',
         flexDirection: 'column',
         gap: '32px',
@@ -103,11 +100,7 @@ export default function OverviewView({ operators, activeOsm, onSelectOperator, o
         </div>
 
         {/* 4 Top Premium Metric Cards with Full-Width SVG Sparklines */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '16px'
-        }}>
+        <div className="grid-4-cols" style={{}}>
           
           {/* 1. HEALTH SCORE */}
           <div style={{
@@ -275,11 +268,7 @@ export default function OverviewView({ operators, activeOsm, onSelectOperator, o
         </div>
 
         {/* ─── MAIN AREA (2-COLUMN GRID) ─── */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '16px'
-        }}>
+        <div className="grid-2-cols" style={{}}>
           
           {/* LEFT: Needs Attention & Pending Evidence */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -475,7 +464,7 @@ export default function OverviewView({ operators, activeOsm, onSelectOperator, o
           <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#71717A', letterSpacing: '0.06em', textTransform: 'uppercase', display: 'block', marginBottom: '12px' }}>
             QUICK ACTIONS
           </span>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+          <div className="grid-4-cols">
             
             <div style={{ background: '#121214', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '8px', padding: '12px', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
               <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(239, 68, 68, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#EF4444' }}>
@@ -524,7 +513,7 @@ export default function OverviewView({ operators, activeOsm, onSelectOperator, o
 
       {/* ─── RIGHT UTILITY COLUMN (30%) ─── */}
       <div style={{
-        padding: '36px 24px 64px',
+        padding: 'var(--spacing-page-v) var(--spacing-card) 64px',
         display: 'flex',
         flexDirection: 'column',
         gap: '32px',

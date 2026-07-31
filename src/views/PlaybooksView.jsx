@@ -30,7 +30,7 @@ export default function PlaybooksView({ onOpenIntervention }) {
       </div>
 
       {/* 2-Column Layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: '24px' }}>
+      <div className="grid-2-cols">
 
         {/* Playbook Catalog Selector (Left) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
@@ -133,7 +133,7 @@ export default function PlaybooksView({ onOpenIntervention }) {
               </div>
 
               {/* Resources & Assets */}
-              <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px solid var(--border-subtle)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+              <div className="grid-2-cols" style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px solid var(--border-subtle)' }}>
                 
                 <div style={{ background: 'var(--bg-surface)', padding: '14px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--accent-purple)', fontSize: '0.825rem', fontWeight: 700 }}>

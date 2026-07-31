@@ -6,7 +6,7 @@ export default function OperatorProfileTab({ operator }) {
 
   return (
     <div style={{
-      padding: '36px 48px 64px',
+      padding: 'var(--spacing-page-v) var(--spacing-page-h) 64px',
       width: '100%',
       minHeight: '100vh',
       background: 'var(--bg-dark)'
@@ -32,7 +32,7 @@ export default function OperatorProfileTab({ operator }) {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', maxWidth: '960px' }}>
+      <div className="grid-2-cols" style={{ maxWidth: '960px' }}>
         
         {/* Stats Column */}
         <div style={{

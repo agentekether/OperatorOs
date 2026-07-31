@@ -7,7 +7,7 @@ export default function OperatorJourneyView({ operator }) {
 
   return (
     <div style={{
-      padding: '36px 48px 64px',
+      padding: 'var(--spacing-page-v) var(--spacing-page-h) 64px',
       width: '100%',
       minHeight: '100vh',
       background: 'var(--bg-dark)'

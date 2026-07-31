@@ -13,7 +13,7 @@ export default function OperatorsView({ operators, onSelectOperator, onOpenInter
 
   return (
     <div style={{
-      padding: '36px 48px 64px',
+      padding: 'var(--spacing-page-v) var(--spacing-page-h) 64px',
       width: '100%',
       minHeight: '100vh',
       background: 'var(--bg-dark)'
@@ -41,7 +41,8 @@ export default function OperatorsView({ operators, onSelectOperator, onOpenInter
         gap: '16px',
         marginBottom: '24px',
         paddingBottom: '16px',
-        borderBottom: '1px solid var(--border-subtle)'
+        borderBottom: '1px solid var(--border-subtle)',
+        flexWrap: 'wrap'
       }}>
         <Filter size={14} color="var(--text-muted)" />
         
@@ -90,7 +91,7 @@ export default function OperatorsView({ operators, onSelectOperator, onOpenInter
       </div>
 
       {/* Table */}
-      <div style={{ width: '100%', overflowX: 'auto' }}>
+      <div className="table-responsive">
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>

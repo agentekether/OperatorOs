@@ -8,7 +8,7 @@ export default function OperatorMissionsView({ operator }) {
 
   if (!activeMission) {
     return (
-      <div style={{ padding: '36px 48px 64px', width: '100%', minHeight: '100vh', background: 'var(--bg-dark)' }}>
+      <div style={{ padding: 'var(--spacing-page-v) var(--spacing-page-h) 64px', width: '100%', minHeight: '100vh', background: 'var(--bg-dark)' }}>
         <h1 style={{ fontSize: '2.25rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>Missions</h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>No active missions. Wait for your coach to unlock the next stage.</p>
       </div>
@@ -17,7 +17,7 @@ export default function OperatorMissionsView({ operator }) {
 
   return (
     <div style={{
-      padding: '36px 48px 64px',
+      padding: 'var(--spacing-page-v) var(--spacing-page-h) 64px',
       width: '100%',
       minHeight: '100vh',
       background: 'var(--bg-dark)'
