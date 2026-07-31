@@ -3,16 +3,13 @@ import { ArrowRight } from 'lucide-react';
 
 export default function WelcomeView({ onEnterPrototype }) {
   const paragraphs = [
-    "After our conversation a few weeks ago, I couldn't stop thinking about the operational challenges behind building a high-performance community.",
+    "After our conversation a few weeks ago, I couldn't stop thinking about the challenge of building communities that create real transformation.",
+    "Having built communities myself, it brought back a question I'd been thinking about for a while: How do you actually measure progress, identify when someone needs support, and help Community Success Managers create better outcomes?",
     "So I decided to explore an idea.",
-    "This prototype isn't based on your internal systems, and it isn't meant to represent how Gridlocked works today.",
-    "It's simply my attempt to imagine what an operating system for communities like this could become.",
-    "I know many of my assumptions are probably wrong.",
-    "That's part of the process.",
-    "I've found that the best way for me to understand complex problems is to build.",
-    "Every project becomes an opportunity to learn, challenge my own thinking, and explore ideas that I wouldn't discover otherwise.",
-    "This prototype is simply the result of that curiosity.",
-    "Whether it ever becomes anything or not, I'm grateful that our conversation inspired me to build it."
+    "I genuinely enjoyed building this. For me, building is one of the best ways to learn.",
+    "This prototype isn't based on your internal systems. It's simply my attempt to imagine an execution layer that complements platforms like Circle, giving Community Success Managers a single operational workspace to guide members, monitor progress, and surface opportunities to help.",
+    "I know many of my assumptions are probably wrong—and that's part of the process. Every project is an opportunity to learn, challenge my thinking, and explore new ideas.",
+    "Whether any of these ideas are useful or not, I'm grateful that our conversation inspired me to build this."
   ];
 
   return (
