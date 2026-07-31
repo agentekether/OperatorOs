@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
 import { Search, Play, FileText, Sparkles, Video, Copy, Check, ExternalLink } from 'lucide-react';
 import { KNOWLEDGE_ITEMS } from '../data/mockData';
+import KnowledgeAssetReader from '../components/KnowledgeAssetReader';
 
 export default function KnowledgeView() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedItem, setSelectedItem] = useState(KNOWLEDGE_ITEMS[0]);
   const [copiedId, setCopiedId] = useState(null);
+  const [mobileModalOpen, setMobileModalOpen] = useState(false);
 
   const filteredItems = KNOWLEDGE_ITEMS.filter(k => 
     k.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     k.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
     k.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
+    if (window.innerWidth <= 767) {
+      setMobileModalOpen(true);
+    }
+  };
 
   const handleCopySopLink = (id) => {
     setCopiedId(id);
@@ -59,7 +68,7 @@ export default function KnowledgeView() {
               <div
                 key={item.id}
                 className="glass-card glass-card-interactive"
-                onClick={() => setSelectedItem(item)}
+                onClick={() => handleSelectItem(item)}
                 style={{
                   padding: '16px',
                   borderColor: isSelected ? 'var(--accent-cyan)' : 'var(--border-subtle)',
@@ -90,119 +99,14 @@ export default function KnowledgeView() {
           })}
         </div>
 
-        {/* Right Column: Deep Reader (Video + AI Summary + SOP Steps) */}
-        <div>
+        {/* Right Column: Deep Reader (Video + AI Summary + SOP Steps) - Desktop Only */}
+        <div className="desktop-only">
           {selectedItem ? (
-            <div className="glass-card" style={{ padding: '24px' }}>
-              
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-                <span className="badge badge-healthy">Verified SOP Asset</span>
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => handleCopySopLink(selectedItem.id)}
-                  style={{ fontSize: '0.775rem', padding: '4px 10px' }}
-                >
-                  {copiedId === selectedItem.id ? <Check size={14} color="var(--risk-healthy)" /> : <Copy size={14} />}
-                  {copiedId === selectedItem.id ? 'Link Copied!' : 'Copy Link for Operator'}
-                </button>
-              </div>
-
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFF', lineHeight: 1.3 }}>
-                {selectedItem.title}
-              </h2>
-              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '12px', marginTop: '8px', fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
-                <span>Category: <strong style={{ color: '#FFF' }}>{selectedItem.category}</strong></span>
-                <span>•</span>
-                <span>Reading time: <strong style={{ color: '#FFF' }}>{selectedItem.readingTime || selectedItem.videoDuration}</strong></span>
-                <span>•</span>
-                <span>Updated: <strong style={{ color: '#FFF' }}>{selectedItem.lastUpdated || 'July 2026'}</strong></span>
-              </div>
-
-              {/* Related Playbook Link Box */}
-              {selectedItem.relatedPlaybook && (
-                <div style={{
-                  marginTop: '14px',
-                  padding: '10px 14px',
-                  background: 'rgba(6, 182, 212, 0.08)',
-                  border: '1px solid rgba(6, 182, 212, 0.25)',
-                  borderRadius: 'var(--radius-sm)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  fontSize: '0.825rem'
-                }}>
-                  <div>
-                    <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 600, display: 'block' }}>
-                      Related Playbook
-                    </span>
-                    <strong style={{ color: 'var(--accent-cyan)', fontSize: '0.9rem' }}>
-                      {selectedItem.relatedPlaybook}
-                    </strong>
-                  </div>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                    Connected OS Asset →
-                  </span>
-                </div>
-              )}
-
-              {/* Simulated Video Player */}
-              <div style={{
-                marginTop: '18px',
-                aspectRatio: '16/9',
-                background: '#05080F',
-                borderRadius: 'var(--radius-md)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '1px solid var(--border-subtle)',
-                position: 'relative'
-              }}>
-                <Play size={48} color="var(--accent-cyan)" style={{ filter: 'drop-shadow(0 0 10px var(--accent-cyan))' }} />
-                <span style={{ fontSize: '0.85rem', color: '#FFF', fontWeight: 600, marginTop: '10px' }}>
-                  Play Mastermind Video Extract ({selectedItem.videoDuration})
-                </span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Auto-synced transcript timestamp at 02:14</span>
-              </div>
-
-              {/* AI Summary Box */}
-              <div style={{
-                marginTop: '20px',
-                background: 'rgba(139, 92, 246, 0.08)',
-                border: '1px solid rgba(139, 92, 246, 0.25)',
-                padding: '14px',
-                borderRadius: 'var(--radius-md)'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                  <Sparkles size={16} color="var(--accent-purple)" />
-                  <strong style={{ fontSize: '0.85rem', color: '#DDD' }}>AI Executive Summary</strong>
-                </div>
-                <p style={{ fontSize: '0.825rem', color: 'var(--text-primary)' }}>
-                  {selectedItem.summary}
-                </p>
-                <div style={{ marginTop: '10px', padding: '8px 12px', background: 'var(--bg-dark)', borderRadius: 'var(--radius-sm)', fontStyle: 'italic', fontSize: '0.775rem', color: 'var(--text-secondary)' }}>
-                  {selectedItem.transcriptSnippet}
-                </div>
-              </div>
-
-              {/* Actionable SOP Checklist */}
-              <div style={{ marginTop: '20px' }}>
-                <h4 style={{ fontSize: '0.925rem', fontWeight: 700, color: '#FFF', marginBottom: '10px' }}>
-                  Actionable SOP Checklist Steps
-                </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  {selectedItem.sopSteps.map((step, idx) => (
-                    <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'var(--bg-surface)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
-                      <span style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'var(--bg-input)', color: 'var(--accent-cyan)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700 }}>
-                        {idx + 1}
-                      </span>
-                      <span style={{ fontSize: '0.825rem', color: '#FFF' }}>{step}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            </div>
+            <KnowledgeAssetReader
+              item={selectedItem}
+              onCopyLink={handleCopySopLink}
+              copiedId={copiedId}
+            />
           ) : (
             <div className="glass-card" style={{ padding: '40px', textAlign: 'center' }}>
               <p className="text-sub">Select an asset from the list to view video, AI summary & SOP steps.</p>
@@ -211,6 +115,41 @@ export default function KnowledgeView() {
         </div>
 
       </div>
+
+      {/* Mobile Pop-Up Modal (Mobile Only when clicking an item) */}
+      {mobileModalOpen && selectedItem && (
+        <div
+          className="sidebar-overlay open"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px',
+            zIndex: 1000
+          }}
+          onClick={() => setMobileModalOpen(false)}
+        >
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '560px',
+              maxHeight: '88vh',
+              overflowY: 'auto',
+              position: 'relative',
+              zIndex: 1001
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <KnowledgeAssetReader
+              item={selectedItem}
+              onCopyLink={handleCopySopLink}
+              copiedId={copiedId}
+              onClose={() => setMobileModalOpen(false)}
+              isModal={true}
+            />
+          </div>
+        </div>
+      )}
 
     </div>
   );
