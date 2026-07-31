@@ -155,9 +155,6 @@ export default function Sidebar({
             onClick={() => {
               if (onSwitchMode) {
                 onSwitchMode('operator');
-              } else {
-                // Fallback for any older usage
-                setAppMode && setAppMode('operator');
               }
             }}
             style={{
@@ -179,8 +176,6 @@ export default function Sidebar({
             onClick={() => {
               if (onSwitchMode) {
                 onSwitchMode('manager');
-              } else {
-                setAppMode && setAppMode('manager');
               }
             }}
             style={{
