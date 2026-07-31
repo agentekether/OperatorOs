@@ -112,6 +112,8 @@ export default function App() {
       <WorkspaceSelectView
         onSelectWorkspace={(mode) => {
           setAppMode(mode);
+          if (mode === 'manager') setManagerTab('overview');
+          if (mode === 'operator') setOperatorTab('home');
           setScreen('app');
         }}
       />
@@ -131,7 +133,11 @@ export default function App() {
       <div className={`sidebar-container ${isMobileMenuOpen ? 'open' : ''}`}>
         <Sidebar
           appMode={appMode}
-          setAppMode={setAppMode}
+          onSwitchMode={(mode) => {
+            setAppMode(mode);
+            if (mode === 'manager') setManagerTab('overview');
+            if (mode === 'operator') setOperatorTab('home');
+          }}
           activeTab={appMode === 'manager' ? managerTab : operatorTab}
           setActiveTab={(tab) => {
             if (appMode === 'manager') setManagerTab(tab);

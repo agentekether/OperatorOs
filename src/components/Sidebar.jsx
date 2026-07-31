@@ -16,7 +16,7 @@ import {
 
 export default function Sidebar({ 
   appMode, 
-  setAppMode, 
+  onSwitchMode, 
   activeTab, 
   setActiveTab, 
   activeOsm, 
@@ -153,9 +153,11 @@ export default function Sidebar({
         }}>
           <button
             onClick={() => {
-              setAppMode('operator');
-              if (activeTab === 'overview' || activeTab === 'operators' || activeTab === 'playbooks' || activeTab === 'settings') {
-                setActiveTab('home');
+              if (onSwitchMode) {
+                onSwitchMode('operator');
+              } else {
+                // Fallback for any older usage
+                setAppMode && setAppMode('operator');
               }
             }}
             style={{
@@ -175,9 +177,10 @@ export default function Sidebar({
           </button>
           <button
             onClick={() => {
-              setAppMode('manager');
-              if (activeTab === 'home' || activeTab === 'journey' || activeTab === 'missions' || activeTab === 'coach' || activeTab === 'profile') {
-                setActiveTab('overview');
+              if (onSwitchMode) {
+                onSwitchMode('manager');
+              } else {
+                setAppMode && setAppMode('manager');
               }
             }}
             style={{
