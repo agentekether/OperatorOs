@@ -312,6 +312,22 @@ body {
   width: 100%;
 }
 
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 90;
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  display: none;
+}
+
+
 .grid-main-sidebar {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -375,6 +391,7 @@ body {
   
   /* Overlay */
   .sidebar-overlay {
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
