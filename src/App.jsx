@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, Bell } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import InterventionModal from './components/InterventionModal';
 import OperatorDrawer from './components/OperatorDrawer';
@@ -157,31 +157,64 @@ export default function App() {
         overflowY: 'auto'
       }}>
         
-        {/* Mobile Header (Hamburger) */}
+        {/* Mobile Header (Hamburger Left, Logo Center, Notification Right) */}
         <div 
           className="mobile-only" 
           style={{
-            padding: '16px',
-            borderBottom: '1px solid rgba(255,255,255,0.05)',
+            padding: '12px 18px',
+            borderBottom: '1px solid rgba(255,255,255,0.06)',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'var(--bg-dark)',
+            background: 'rgba(11, 11, 13, 0.95)',
+            backdropFilter: 'blur(10px)',
             position: 'sticky',
             top: 0,
-            zIndex: 80
+            zIndex: 80,
+            height: '56px',
+            boxSizing: 'border-box'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '24px', height: '24px', borderRadius: '4px', background: '#F5F5F4', color: '#0B0B0D', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '-0.05em' }}>
-              O
-            </div>
-            <span style={{ fontSize: '1rem', fontWeight: 600, color: '#F5F5F4', letterSpacing: '-0.02em' }}>OperatorOS</span>
-          </div>
           <button 
             onClick={() => setIsMobileMenuOpen(true)}
-            style={{ background: 'transparent', border: 'none', color: '#F5F5F4', padding: '4px', cursor: 'pointer' }}
+            style={{ 
+              background: 'transparent', 
+              border: 'none', 
+              color: '#F5F5F4', 
+              padding: '6px', 
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginLeft: '-6px'
+            }}
+            aria-label="Open navigation menu"
           >
-            <Menu size={24} />
+            <Menu size={22} />
+          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ width: '22px', height: '22px', borderRadius: '5px', background: '#F5F5F4', color: '#0B0B0D', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '-0.05em' }}>
+              O
+            </div>
+            <span style={{ fontSize: '0.95rem', fontWeight: 600, color: '#F5F5F4', letterSpacing: '-0.02em' }}>OperatorOS</span>
+          </div>
+
+          <button
+            onClick={() => alert('No new notifications')}
+            style={{ 
+              background: 'transparent', 
+              border: 'none', 
+              color: 'var(--text-muted)', 
+              padding: '6px', 
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginRight: '-6px'
+            }}
+            aria-label="Notifications"
+          >
+            <Bell size={19} />
           </button>
         </div>
         
@@ -229,8 +262,10 @@ export default function App() {
               />
             )}
             {operatorTab === 'knowledge' && <OperatorKnowledgeView />}
+            {operatorTab === 'playbooks' && <PlaybooksView onOpenIntervention={(op) => setInterventionModalOp(op)} />}
             {operatorTab === 'coach' && <OperatorCoachView operator={loggedInOperator} />}
             {operatorTab === 'profile' && <OperatorProfileTab operator={loggedInOperator} />}
+            {operatorTab === 'settings' && <SettingsView />}
           </>
         )}
 

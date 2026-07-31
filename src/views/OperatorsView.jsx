@@ -90,8 +90,8 @@ export default function OperatorsView({ operators, onSelectOperator, onOpenInter
         )}
       </div>
 
-      {/* Table */}
-      <div className="table-responsive">
+      {/* Table (Desktop Only) */}
+      <div className="table-responsive desktop-only">
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
@@ -206,6 +206,95 @@ export default function OperatorsView({ operators, onSelectOperator, onOpenInter
             })}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Operator Directory Cards (Mobile Only) */}
+      <div className="mobile-only" style={{ flexDirection: 'column', gap: '12px', marginTop: '8px' }}>
+        {filteredOperators.map((op) => {
+          const progressPct = Math.round((op.stageNumber / 11) * 100);
+          return (
+            <div
+              key={op.id}
+              onClick={() => onSelectOperator(op)}
+              style={{
+                background: '#121214',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: '12px',
+                padding: '16px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+                cursor: 'pointer'
+              }}
+            >
+              {/* Top Row: Avatar + Name + Risk Score */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <img
+                    src={op.avatar}
+                    alt={op.name}
+                    style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }}
+                  />
+                  <div>
+                    <span style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)', display: 'block' }}>
+                      {op.name}
+                    </span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                      {op.email}
+                    </span>
+                  </div>
+                </div>
+                <span className={`badge badge-${op.riskLevel}`}>
+                  {op.riskScore}
+                </span>
+              </div>
+
+              {/* Middle Row: Stage & Progress Bar */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '0.8125rem', color: 'var(--text-primary)', fontWeight: 500 }}>{op.stage}</span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+                    {op.stageNumber}/11 • {progressPct}%
+                  </span>
+                </div>
+                <div style={{ width: '100%', height: '4px', background: '#18181B', borderRadius: '2px' }}>
+                  <div style={{ width: `${progressPct}%`, height: '100%', background: 'var(--text-primary)', borderRadius: '2px' }} />
+                </div>
+              </div>
+
+              {/* Bottom Row: Last Login, Coach, Intervene */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '4px', borderTop: '1px solid var(--border-subtle)' }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  <span>Coach: {op.coach}</span> • <span style={{ color: op.lastLoginDays >= 5 ? '#EF4444' : 'var(--text-secondary)' }}>{op.lastLoginDays === 0 ? 'Today' : `${op.lastLoginDays}d ago`}</span>
+                </div>
+
+                {op.suggestedIntervention && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenIntervention(op);
+                    }}
+                    style={{
+                      background: '#F5F5F4',
+                      color: '#0B0B0D',
+                      border: 'none',
+                      borderRadius: '6px',
+                      padding: '6px 12px',
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}
+                  >
+                    Intervene <ArrowRight size={13} />
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

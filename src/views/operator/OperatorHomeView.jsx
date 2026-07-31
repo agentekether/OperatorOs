@@ -11,7 +11,8 @@ import {
   Users, 
   TrendingUp, 
   HelpCircle,
-  MoreHorizontal
+  MoreHorizontal,
+  Flame
 } from 'lucide-react';
 
 export default function OperatorHomeView({ operator, setOperatorTab }) {
@@ -131,73 +132,113 @@ export default function OperatorHomeView({ operator, setOperatorTab }) {
           </p>
         </div>
 
-        {/* 4 Hero Metric Blocks */}
-        <div className="grid-4-cols" style={{ padding: '24px 0',
-          borderTop: '1px solid var(--border-subtle)',
-          borderBottom: '1px solid var(--border-subtle)'
-        }}>
+        {/* 4 Hero Metric Cards (Compact Dashboard) */}
+        <div className="grid-4-cols" style={{ padding: '8px 0' }}>
           {/* Analysis Score */}
-          <div>
-            <span style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
-              ANALYSIS SCORE
-            </span>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '6px' }}>
-              <span style={{ fontSize: '2.25rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', letterSpacing: '-0.03em' }}>
+          <div className="mobile-metric-card">
+            <div>
+              <span style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                ANALYSIS SCORE
+              </span>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
+                <span style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', letterSpacing: '-0.03em', lineHeight: 1 }}>
+                  {operator.analysisScore || 82}
+                </span>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>/100</span>
+              </div>
+              <span style={{ fontSize: '0.75rem', color: '#32D583', fontWeight: 500 }}>
+                ↑ 6 pts this week
+              </span>
+            </div>
+            <div style={{ position: 'relative', width: '46px', height: '46px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <svg width="46" height="46" viewBox="0 0 46 46">
+                <circle cx="23" cy="23" r="18" fill="none" stroke="#1F1F23" strokeWidth="3.5" />
+                <circle cx="23" cy="23" r="18" fill="none" stroke="#32D583" strokeWidth="3.5" strokeDasharray="113" strokeDashoffset="48" strokeLinecap="round" style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%' }} />
+              </svg>
+              <span style={{ position: 'absolute', fontSize: '0.7rem', fontWeight: 700, color: '#FFF', fontFamily: 'var(--font-mono)' }}>
                 {operator.analysisScore || 82}
               </span>
-              <span style={{ fontSize: '1rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>/100</span>
             </div>
-            <span style={{ fontSize: '0.75rem', color: '#32D583', fontWeight: 500 }}>
-              ↑ 6 pts this week
-            </span>
           </div>
 
           {/* Stages Completed */}
-          <div>
-            <span style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
-              STAGES COMPLETED
-            </span>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '6px' }}>
-              <span style={{ fontSize: '2.25rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', letterSpacing: '-0.03em' }}>
-                3
+          <div className="mobile-metric-card">
+            <div>
+              <span style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                STAGES COMPLETED
               </span>
-              <span style={{ fontSize: '1rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>/12</span>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
+                <span style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', letterSpacing: '-0.03em', lineHeight: 1 }}>
+                  3
+                </span>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>/12</span>
+              </div>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                25% of your journey
+              </span>
             </div>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              25% of your journey
-            </span>
+            <div style={{ position: 'relative', width: '46px', height: '46px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <svg width="46" height="46" viewBox="0 0 46 46">
+                <circle cx="23" cy="23" r="18" fill="none" stroke="#1F1F23" strokeWidth="3.5" />
+                <circle cx="23" cy="23" r="18" fill="none" stroke="#F5F5F4" strokeWidth="3.5" strokeDasharray="113" strokeDashoffset="85" strokeLinecap="round" style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%' }} />
+              </svg>
+              <span style={{ position: 'absolute', fontSize: '0.65rem', fontWeight: 700, color: '#FFF', fontFamily: 'var(--font-mono)' }}>
+                25%
+              </span>
+            </div>
           </div>
 
           {/* Missions Completed */}
-          <div>
-            <span style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
-              MISSIONS COMPLETED
-            </span>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '6px' }}>
-              <span style={{ fontSize: '2.25rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', letterSpacing: '-0.03em' }}>
-                14
+          <div className="mobile-metric-card">
+            <div>
+              <span style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                MISSIONS COMPLETED
               </span>
-              <span style={{ fontSize: '1rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>/48</span>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
+                <span style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', letterSpacing: '-0.03em', lineHeight: 1 }}>
+                  14
+                </span>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>/48</span>
+              </div>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                29% completion
+              </span>
             </div>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              29% completion
-            </span>
+            <div style={{ position: 'relative', width: '46px', height: '46px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <svg width="46" height="46" viewBox="0 0 46 46">
+                <circle cx="23" cy="23" r="18" fill="none" stroke="#1F1F23" strokeWidth="3.5" />
+                <circle cx="23" cy="23" r="18" fill="none" stroke="#A855F7" strokeWidth="3.5" strokeDasharray="113" strokeDashoffset="80" strokeLinecap="round" style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%' }} />
+              </svg>
+              <span style={{ position: 'absolute', fontSize: '0.65rem', fontWeight: 700, color: '#FFF', fontFamily: 'var(--font-mono)' }}>
+                29%
+              </span>
+            </div>
           </div>
 
           {/* Current Streak */}
-          <div>
-            <span style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
-              CURRENT STREAK
-            </span>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '6px' }}>
-              <span style={{ fontSize: '2.25rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', letterSpacing: '-0.03em' }}>
-                7
+          <div className="mobile-metric-card">
+            <div>
+              <span style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                CURRENT STREAK
               </span>
-              <span style={{ fontSize: '0.9375rem', color: 'var(--text-secondary)' }}>days</span>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '4px' }}>
+                <span style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', letterSpacing: '-0.03em', lineHeight: 1 }}>
+                  7
+                </span>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>days</span>
+              </div>
+              <span style={{ fontSize: '0.75rem', color: '#32D583', fontWeight: 500 }}>
+                Keep it up.
+              </span>
             </div>
-            <span style={{ fontSize: '0.75rem', color: '#32D583', fontWeight: 500 }}>
-              Keep it up.
-            </span>
+            <div style={{
+              width: '44px', height: '44px', borderRadius: '50%',
+              background: 'rgba(50, 213, 131, 0.12)', border: '1px solid rgba(50, 213, 131, 0.3)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0
+            }}>
+              <Flame size={20} color="#32D583" />
+            </div>
           </div>
         </div>
 
@@ -207,66 +248,86 @@ export default function OperatorHomeView({ operator, setOperatorTab }) {
             YOUR TRANSFORMATION
           </span>
 
-          <div style={{
-            background: '#121214',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: '14px',
-            padding: '32px 36px',
-            display: 'grid',
-            gridTemplateColumns: '1fr 200px 220px',
-            alignItems: 'center',
-            gap: '32px'
-          }}>
-            {/* Left: Stage Title & Description */}
+          <div 
+            className="stage-card-grid"
+            style={{
+              background: '#121214',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '14px',
+              padding: '24px 28px'
+            }}
+          >
+            {/* Left: Stage Title, Description & Checklist */}
             <div>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '6px' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '4px' }}>
                 Current Stage
               </span>
-              <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginBottom: '6px' }}>
+              <h2 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginBottom: '4px' }}>
                 Build Your Offer
               </h2>
-              <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '14px', fontWeight: 500 }}>
+              <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '12px', fontWeight: 500 }}>
                 Stage 3 of 12
               </span>
-              <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '20px', maxWidth: '320px' }}>
+              <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: '16px', maxWidth: '340px' }}>
                 Define your offer, position it clearly and create massive value for your ideal client.
               </p>
+
+              {/* Compact What you'll accomplish checklist */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '18px' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>
+                  What you&apos;ll accomplish:
+                </span>
+                {[
+                  'Define your ideal client',
+                  'Build your offer',
+                  'Validate your position',
+                  'Create your value proposition'
+                ].map((item, idx) => (
+                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                    <CheckCircle2 size={13} color="#32D583" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
               <button
                 onClick={() => setOperatorTab('journey')}
                 style={{
-                  background: 'none',
+                  background: 'var(--text-primary)',
                   border: 'none',
-                  color: 'var(--text-primary)',
+                  borderRadius: 'var(--radius-md)',
+                  color: '#0B0B0D',
                   fontSize: '0.8125rem',
                   fontWeight: 600,
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '6px',
                   cursor: 'pointer',
-                  padding: 0
+                  padding: '10px 18px',
+                  transition: 'all var(--transition-fast)'
                 }}
               >
-                View Stage <ArrowRight size={14} />
+                View Stage Details <ArrowRight size={14} />
               </button>
             </div>
 
-            {/* Center: Circular Progress Ring */}
+            {/* Center: Compact Circular Progress Ring (96px) */}
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div style={{ position: 'relative', width: '150px', height: '150px' }}>
-                <svg width="150" height="150" viewBox="0 0 150 150">
+              <div style={{ position: 'relative', width: '96px', height: '96px' }}>
+                <svg width="96" height="96" viewBox="0 0 96 96">
                   <circle
-                    cx="75" cy="75" r="60"
+                    cx="48" cy="48" r="38"
                     fill="none"
                     stroke="#1F1F23"
-                    strokeWidth="8"
+                    strokeWidth="6"
                   />
                   <circle
-                    cx="75" cy="75" r="60"
+                    cx="48" cy="48" r="38"
                     fill="none"
                     stroke="#F5F5F4"
-                    strokeWidth="8"
-                    strokeDasharray="377"
-                    strokeDashoffset="124"
+                    strokeWidth="6"
+                    strokeDasharray="239"
+                    strokeDashoffset="79"
                     strokeLinecap="round"
                     style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%', transition: 'stroke-dashoffset 0.8s ease' }}
                   />
@@ -279,18 +340,18 @@ export default function OperatorHomeView({ operator, setOperatorTab }) {
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  <span style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>
+                  <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>
                     67%
                   </span>
-                  <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-                    Stage Progress
+                  <span style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                    Progress
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Right: Stage Stepper */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', borderLeft: '1px solid var(--border-subtle)', paddingLeft: '24px' }}>
+            {/* Right: Stage Stepper (Desktop Only) */}
+            <div className="desktop-only" style={{ flexDirection: 'column', gap: '12px', borderLeft: '1px solid var(--border-subtle)', paddingLeft: '24px' }}>
               {milestones.map(m => (
                 <div
                   key={m.id}

@@ -45,15 +45,26 @@ export default function OperatorKnowledgeView() {
       <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '800px' }}>
         {filteredItems.length > 0 ? filteredItems.map(item => (
           <div key={item.id} style={{ padding: '20px 0', borderBottom: '1px solid var(--border-subtle)' }}>
-            <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>
-              {item.category}
-            </span>
-            <h3 style={{ fontSize: '1.0625rem', fontWeight: 600, color: 'var(--text-primary)', marginTop: '4px', marginBottom: '8px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+              <span style={{ fontSize: '0.6875rem', color: 'var(--accent-cyan)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>
+                {item.category}
+              </span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>•</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{item.readingTime || '4 min read'}</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>•</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Updated {item.lastUpdated || 'July 2026'}</span>
+            </div>
+            <h3 style={{ fontSize: '1.0625rem', fontWeight: 600, color: 'var(--text-primary)', marginTop: '2px', marginBottom: '8px' }}>
               {item.title}
             </h3>
-            <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '16px', lineHeight: 1.5 }}>
+            <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '12px', lineHeight: 1.5 }}>
               {item.summary}
             </p>
+            {item.relatedPlaybook && (
+              <div style={{ marginBottom: '14px', fontSize: '0.775rem', color: 'var(--text-secondary)' }}>
+                Related Playbook: <strong style={{ color: 'var(--text-primary)' }}>{item.relatedPlaybook}</strong>
+              </div>
+            )}
             <div style={{ display: 'flex', gap: '10px' }}>
               <button
                 onClick={() => alert('Downloading template...')}

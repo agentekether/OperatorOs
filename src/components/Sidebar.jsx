@@ -11,7 +11,9 @@ import {
   Users, 
   Layers, 
   Activity, 
-  ChevronDown 
+  ChevronDown,
+  HelpCircle,
+  LogOut
 } from 'lucide-react';
 
 export default function Sidebar({ 
@@ -35,8 +37,10 @@ export default function Sidebar({
     { id: 'journey', label: 'Transformation', icon: Compass },
     { id: 'missions', label: 'Missions', icon: Target },
     { id: 'knowledge', label: 'Knowledge', icon: BookOpen },
+    { id: 'playbooks', label: 'Playbooks', icon: Layers },
     { id: 'coach', label: 'Coach', icon: MessageSquare },
-    { id: 'profile', label: 'Profile', icon: User }
+    { id: 'profile', label: 'Profile', icon: User },
+    { id: 'settings', label: 'Settings', icon: Settings }
   ];
 
   const currentNavItems = appMode === 'manager' ? managerNavItems : operatorNavItems;
@@ -59,26 +63,71 @@ export default function Sidebar({
       userSelect: 'none'
     }}>
       {/* Top Section */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         
-        {/* Brand */}
-        <div style={{ padding: '0 8px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-            <Activity size={18} color="var(--text-primary)" />
-            <span style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-              OperatorOS
-            </span>
-            <span style={{ fontSize: '0.625rem', color: 'var(--text-muted)', padding: '1px 5px', border: '1px solid var(--border-subtle)', borderRadius: '3px', fontWeight: 500 }}>
-              OS
-            </span>
+        {/* User Profile Header (Top) */}
+        <div style={{
+          padding: '4px 8px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {appMode === 'operator' ? (
+              <img 
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" 
+                alt={operatorName}
+                style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }}
+              />
+            ) : (
+              <div style={{
+                width: '32px', height: '32px', borderRadius: '50%',
+                background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)',
+                color: 'var(--text-primary)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontWeight: 600, fontSize: '0.75rem'
+              }}>
+                {activeOsm.slice(0, 2)}
+              </div>
+            )}
+            <div>
+              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)', display: 'block', lineHeight: 1.2 }}>
+                {appMode === 'operator' ? operatorName : activeOsm}
+              </span>
+              <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                {appMode === 'operator' ? 'Operator' : 'Success Manager'}
+              </span>
+            </div>
           </div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', lineHeight: 1.3 }}>
-            Operating System<br />for Operators
-          </span>
+        </div>
+
+        {/* Workspace Selector Dropdown */}
+        <div style={{ padding: '0 4px' }}>
+          <button style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '8px 12px',
+            background: '#121214',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
+            borderRadius: 'var(--radius-md)',
+            color: 'var(--text-primary)',
+            fontSize: '0.8125rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            transition: 'all var(--transition-fast)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Activity size={15} color="var(--accent-cyan)" />
+              <span>OperatorOS</span>
+            </div>
+            <ChevronDown size={14} color="var(--text-muted)" />
+          </button>
         </div>
 
         {/* Navigation Section with Editorial Kicker */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <span style={{
             fontSize: '0.6875rem',
             fontWeight: 600,
@@ -195,55 +244,73 @@ export default function Sidebar({
           </button>
         </div>
 
-        {/* User Profile Footer Card */}
+        {/* Help & Logout Footer */}
         <div style={{
-          padding: '10px 10px',
-          borderRadius: 'var(--radius-md)',
-          background: 'transparent',
-          border: '1px solid transparent',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          cursor: 'pointer',
-          transition: 'all var(--transition-fast)'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'var(--bg-hover)';
-          e.currentTarget.style.borderColor = 'var(--border-subtle)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'transparent';
-          e.currentTarget.style.borderColor = 'transparent';
-        }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            {appMode === 'operator' ? (
-              <img 
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" 
-                alt={operatorName}
-                style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }}
-              />
-            ) : (
-              <div style={{
-                width: '32px', height: '32px', borderRadius: '50%',
-                background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)',
-                color: 'var(--text-primary)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 600, fontSize: '0.75rem'
-              }}>
-                {activeOsm.slice(0, 2)}
-              </div>
-            )}
-            <div>
-              <span style={{ fontSize: '0.8125rem', fontWeight: 500, color: 'var(--text-primary)', display: 'block', lineHeight: 1.2 }}>
-                {appMode === 'operator' ? operatorName : activeOsm}
-              </span>
-              <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)' }}>
-                {appMode === 'operator' ? 'Operator' : 'Success Manager'}
-              </span>
-            </div>
-          </div>
-          <ChevronDown size={14} color="var(--text-muted)" />
+          flexDirection: 'column',
+          gap: '2px',
+          paddingTop: '12px',
+          borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+        }}>
+          <button
+            onClick={() => alert('Help & Support documentation center')}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '8px 12px',
+              borderRadius: 'var(--radius-md)',
+              background: 'transparent',
+              border: '1px solid transparent',
+              color: 'var(--text-secondary)',
+              fontSize: '0.8125rem',
+              cursor: 'pointer',
+              textAlign: 'left',
+              transition: 'all var(--transition-fast)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--bg-hover)';
+              e.currentTarget.style.color = 'var(--text-primary)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--text-secondary)';
+            }}
+          >
+            <HelpCircle size={17} />
+            <span>Help & Support</span>
+          </button>
+
+          <button
+            onClick={() => alert('Logged out')}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '8px 12px',
+              borderRadius: 'var(--radius-md)',
+              background: 'transparent',
+              border: '1px solid transparent',
+              color: 'var(--text-secondary)',
+              fontSize: '0.8125rem',
+              cursor: 'pointer',
+              textAlign: 'left',
+              transition: 'all var(--transition-fast)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--bg-hover)';
+              e.currentTarget.style.color = 'var(--risk-critical)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--text-secondary)';
+            }}
+          >
+            <LogOut size={17} />
+            <span>Log out</span>
+          </button>
         </div>
 
       </div>

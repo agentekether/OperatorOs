@@ -81,9 +81,13 @@ export default function PlaybooksView({ onOpenIntervention }) {
               <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#FFF' }}>
                 {selectedPlaybook.title}
               </h2>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
-                Target Stage: <strong>{selectedPlaybook.targetStage}</strong>
+              <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                {selectedPlaybook.objective}
               </p>
+              <div style={{ display: 'flex', gap: '16px', marginTop: '8px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                <span>Duration: <strong style={{ color: '#FFF' }}>{selectedPlaybook.estimatedDuration || '7 Days'}</strong></span>
+                <span>Stage: <strong style={{ color: '#FFF' }}>{selectedPlaybook.targetStage}</strong></span>
+              </div>
 
               {/* Checklist Section */}
               <div style={{ marginTop: '24px' }}>
@@ -140,7 +144,7 @@ export default function PlaybooksView({ onOpenIntervention }) {
                     <Video size={16} /> Video Guide
                   </div>
                   <p style={{ fontSize: '0.85rem', color: '#FFF', fontWeight: 600, marginTop: '4px' }}>
-                    {selectedPlaybook.videoGuide}
+                    {selectedPlaybook.videoGuide || 'Walkthrough Masterclass'}
                   </p>
                 </div>
 
@@ -149,11 +153,71 @@ export default function PlaybooksView({ onOpenIntervention }) {
                     <Download size={16} /> Asset Template
                   </div>
                   <p style={{ fontSize: '0.85rem', color: '#FFF', fontWeight: 600, marginTop: '4px' }}>
-                    {selectedPlaybook.templateLink}
+                    {selectedPlaybook.templateLink || 'Standard Template Pack (.zip)'}
                   </p>
                 </div>
 
               </div>
+
+              {/* Resources Checklist & Evidence */}
+              {selectedPlaybook.resources && (
+                <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)' }}>
+                  <span style={{ fontSize: '0.725rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '8px' }}>
+                    Included Resources
+                  </span>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                    {selectedPlaybook.resources.map((res, idx) => (
+                      <span key={idx} style={{ fontSize: '0.775rem', padding: '4px 10px', background: 'var(--bg-input)', border: '1px solid var(--border-subtle)', borderRadius: '4px', color: 'var(--text-primary)' }}>
+                        • {res}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {selectedPlaybook.requiredEvidence && (
+                <div style={{
+                  marginTop: '14px',
+                  padding: '12px 14px',
+                  background: 'rgba(50, 213, 131, 0.08)',
+                  border: '1px solid rgba(50, 213, 131, 0.25)',
+                  borderRadius: 'var(--radius-sm)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}>
+                  <div>
+                    <span style={{ fontSize: '0.725rem', color: '#32D583', fontWeight: 700, textTransform: 'uppercase', display: 'block' }}>
+                      Required Evidence
+                    </span>
+                    <strong style={{ fontSize: '0.85rem', color: '#FFF', marginTop: '2px', display: 'block' }}>
+                      {selectedPlaybook.requiredEvidence}
+                    </strong>
+                  </div>
+                  <CheckCircle2 size={18} color="#32D583" />
+                </div>
+              )}
+
+              {selectedPlaybook.relatedKnowledge && (
+                <div style={{
+                  marginTop: '14px',
+                  padding: '12px 14px',
+                  background: 'rgba(139, 92, 246, 0.08)',
+                  border: '1px solid rgba(139, 92, 246, 0.25)',
+                  borderRadius: 'var(--radius-sm)'
+                }}>
+                  <span style={{ fontSize: '0.725rem', color: 'var(--accent-purple)', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
+                    Related Knowledge Articles
+                  </span>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                    {selectedPlaybook.relatedKnowledge.map((art, idx) => (
+                      <span key={idx} style={{ fontSize: '0.775rem', color: '#FFF', background: 'rgba(139, 92, 246, 0.15)', padding: '4px 10px', borderRadius: '4px', border: '1px solid rgba(139, 92, 246, 0.3)' }}>
+                        📖 {art}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
 
             </div>
           ) : (

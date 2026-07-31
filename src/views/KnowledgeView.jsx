@@ -71,7 +71,7 @@ export default function KnowledgeView() {
                   <span style={{ fontSize: '0.725rem', background: 'var(--bg-input)', color: 'var(--accent-cyan)', padding: '2px 8px', borderRadius: '4px', border: '1px solid rgba(6, 182, 212, 0.2)', fontWeight: 600 }}>
                     {item.category}
                   </span>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{item.videoDuration} video</span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{item.readingTime || item.videoDuration}</span>
                 </div>
 
                 <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#FFF', lineHeight: 1.3 }}>
@@ -82,8 +82,8 @@ export default function KnowledgeView() {
                 </p>
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '12px', paddingTop: '10px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  <span>Stage: <strong>{item.stage}</strong></span>
-                  <span>By {item.author}</span>
+                  <span>Playbook: <strong style={{ color: 'var(--text-primary)' }}>{item.relatedPlaybook || item.stage}</strong></span>
+                  <span>{item.lastUpdated || `By ${item.author}`}</span>
                 </div>
               </div>
             );
@@ -110,9 +110,40 @@ export default function KnowledgeView() {
               <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFF', lineHeight: 1.3 }}>
                 {selectedItem.title}
               </h2>
-              <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
-                {selectedItem.category} • Stage: <strong>{selectedItem.stage}</strong>
-              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '12px', marginTop: '8px', fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
+                <span>Category: <strong style={{ color: '#FFF' }}>{selectedItem.category}</strong></span>
+                <span>•</span>
+                <span>Reading time: <strong style={{ color: '#FFF' }}>{selectedItem.readingTime || selectedItem.videoDuration}</strong></span>
+                <span>•</span>
+                <span>Updated: <strong style={{ color: '#FFF' }}>{selectedItem.lastUpdated || 'July 2026'}</strong></span>
+              </div>
+
+              {/* Related Playbook Link Box */}
+              {selectedItem.relatedPlaybook && (
+                <div style={{
+                  marginTop: '14px',
+                  padding: '10px 14px',
+                  background: 'rgba(6, 182, 212, 0.08)',
+                  border: '1px solid rgba(6, 182, 212, 0.25)',
+                  borderRadius: 'var(--radius-sm)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  fontSize: '0.825rem'
+                }}>
+                  <div>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 600, display: 'block' }}>
+                      Related Playbook
+                    </span>
+                    <strong style={{ color: 'var(--accent-cyan)', fontSize: '0.9rem' }}>
+                      {selectedItem.relatedPlaybook}
+                    </strong>
+                  </div>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                    Connected OS Asset →
+                  </span>
+                </div>
+              )}
 
               {/* Simulated Video Player */}
               <div style={{
